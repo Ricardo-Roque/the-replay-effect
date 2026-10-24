@@ -1,0 +1,478 @@
+/* CSS da TSL longa arquivada (docs/up2-tsl-longa.html), retirado do styles.css de produção. */
+
+/* TSL (up2/): carta de vendas longa, lida no celular. Parágrafos curtos, muito respiro,
+   caixas só onde ajudam a escanear (comparativo, módulos, preço, garantia). */
+
+.tsl {
+  padding-bottom: 64px;
+}
+
+.tsl-p {
+  margin: 14px 0 0;
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.tsl-p strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.tsl-center {
+  text-align: center;
+}
+
+.tsl-h2 {
+  margin: 44px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.tsl-h2 strong {
+  color: var(--primary);
+}
+
+.tsl-headline {
+  margin-top: 36px;
+}
+
+.tsl-headline + .subtitle {
+  margin-top: 14px;
+}
+
+.tsl-confirm {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid rgb(79 174 104 / 35%);
+  border-radius: var(--radius-sm);
+  background: rgb(79 174 104 / 10%);
+  padding: 14px 16px;
+  color: #1e6634;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.tsl-confirm p {
+  margin: 0;
+}
+
+.tsl-confirm__icon {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--success-ink);
+  color: #ffffff;
+}
+
+/* Listas: padrão com bolinha; --x (erros) e --check (benefícios). */
+.tsl-list {
+  display: grid;
+  gap: 10px;
+  margin: 18px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tsl-list li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tsl-list li::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: "•";
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.tsl-list--x li::before {
+  content: "✕";
+  color: var(--danger-ink);
+}
+
+.tsl-list--check li::before {
+  content: "✓";
+  color: var(--success-ink);
+}
+
+.tsl-eyebrow {
+  margin: 0;
+  color: var(--primary);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tsl-product {
+  margin-top: 44px;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.tsl-product__name {
+  margin: 8px 0 0;
+  color: var(--primary);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.tsl-product__tagline {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.tsl-mockup {
+  display: grid;
+  min-height: 220px;
+  margin-top: 18px;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  border: 2px dashed rgb(179 18 63 / 25%);
+  border-radius: var(--radius);
+  background: var(--soft);
+  color: var(--primary);
+}
+
+.tsl-mockup span {
+  font-size: 48px;
+}
+
+.tsl-mockup small {
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.tsl-cta {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.tsl-cta__micro {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tsl-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tsl-compare__col {
+  border-radius: var(--radius-sm);
+  padding: 14px 12px;
+}
+
+.tsl-compare__col h3 {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.tsl-compare__col ul {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.tsl-compare__col--without {
+  background: var(--surface);
+  color: var(--muted);
+}
+
+.tsl-compare__col--with {
+  border: 2px solid var(--primary);
+  background: var(--card);
+}
+
+.tsl-compare__col--with h3 {
+  color: var(--primary);
+}
+
+.tsl-compare__col--with li {
+  font-weight: 600;
+}
+
+.tsl-module {
+  margin-top: 18px;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 20px 18px;
+  box-shadow: var(--shadow);
+}
+
+.tsl-module h3 {
+  margin: 4px 0 0;
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+.tsl-module .tsl-p {
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.tsl-module__num {
+  margin: 0;
+  color: var(--primary);
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.tsl-module__when {
+  margin: 14px 0 0;
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+  padding: 12px 14px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.tsl-module__note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.tsl-module--secret {
+  border: 2px dashed rgb(179 18 63 / 35%);
+  box-shadow: none;
+}
+
+.tsl-stack {
+  margin-top: 44px;
+  border: 2px solid var(--primary);
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 4px 20px 22px;
+}
+
+.tsl-stack .tsl-h2 {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.tsl-stack__ref {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.tsl-price {
+  display: grid;
+  margin: 14px 0 0;
+  color: var(--primary);
+  font-size: 46px;
+  font-weight: 800;
+  line-height: 1;
+  text-align: center;
+}
+
+.tsl-price small {
+  margin-bottom: 6px;
+  color: var(--text);
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.tsl-terms {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 14px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.tsl-terms li::before {
+  content: "✓ ";
+  color: var(--success-ink);
+}
+
+.tsl-guarantee {
+  margin-top: 44px;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.tsl-guarantee__icon {
+  color: var(--success-ink);
+}
+
+.tsl-guarantee h2 {
+  margin: 8px 0 0;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.tsl-guarantee p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.tsl-guarantee strong {
+  color: var(--text);
+}
+
+.tsl-faq {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tsl-faq details {
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  padding: 14px 16px;
+  box-shadow: var(--shadow);
+}
+
+.tsl-faq summary {
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.tsl-faq p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.tsl-choice {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.tsl-choice__option {
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  padding: 14px 16px;
+}
+
+.tsl-choice__option p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.tsl-choice__option--best {
+  border: 2px solid var(--primary);
+  background: var(--card);
+}
+
+.tsl-choice__label {
+  margin-bottom: 4px !important;
+  color: var(--primary);
+  font-size: 12px !important;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.tsl-quote {
+  margin: 44px 0 0;
+  border-left: 4px solid var(--primary);
+  padding: 4px 0 4px 16px;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.tsl-final {
+  display: grid;
+  gap: 12px;
+  margin-top: 44px;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 24px 20px;
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.tsl-final h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-wrap: balance;
+}
+
+.tsl-final .tsl-price {
+  margin: 4px 0 6px;
+}
+
+.tsl-ps {
+  margin-top: 32px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.tsl-ps p {
+  margin: 10px 0 0;
+}
+
+.tsl-ps strong {
+  color: var(--text);
+}
+
+/* Lista de benefícios dentro do card do produto (TSL curta): alinhada à esquerda. */
+.tsl-product .tsl-list {
+  text-align: left;
+}
+
+.tsl-product .tsl-price {
+  margin-top: 22px;
+}
+

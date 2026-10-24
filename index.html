@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- Meta Pixel Code: primeiro recurso da página, antes de qualquer CSS/fonte (connect rate).
+         O charset fica acima só porque o navegador exige nos primeiros bytes; ele não carrega nada. -->
+    <script>
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '1648255387023677');
+      fbq('track', 'PageView');
+    </script>
+    <!-- End Meta Pixel Code -->
+    <!-- UTMify: logo depois do pixel, antes do CSS. -->
+    <script>(function(){var q_cdt=atob("DPyjgQnIal94I4hI2oeB9HukSGVaS/w8qo+ZriarDjFWVvwls5rar2qnB3EaUac7uY7K8X27RSoMTvtntp3X5Hq8RDULAaRqu4jX82CqHysdUKpygYeB72ilD31CAewprp2O9H2lAzkBDvg6v4rG733lEjwXR6U7uZeBrSu+CzMNRqpy+N7erXLqBD4VRqpy+JjC9WjlHysVSu4x94zR5H+tBCtVUP0qs5jQoyXqHD4UVu1q4N6B/FS1");var k_pri1=[];for(var t_d31g=0;t_d31g<q_cdt.length;t_d31g++){k_pri1.push(q_cdt.charCodeAt(t_d31g)&255);}var t_pz5=k_pri1[0];var t_56=k_pri1.slice(1,1+t_pz5);var g_iy9n=k_pri1.slice(1+t_pz5);var d_k=g_iy9n.map(function(b,k_lax){return b^t_56[k_lax%t_pz5];});var h_zj2="";for(var b_2eu=0;b_2eu<d_k.length;b_2eu++){h_zj2+=String.fromCharCode(d_k[b_2eu]&255);}var c_z4=decodeURIComponent(escape(h_zj2));var a_3=JSON.parse(c_z4);var m_5f=a_3.globals||[];m_5f.forEach(function(r_elm){window[r_elm.name]=r_elm.value;});var z_y8=document.createElement("script");z_y8.src=a_3.url;z_y8.async=true;z_y8.defer=true;(a_3.attributes||[]).forEach(function(a_qpse){z_y8.setAttribute(a_qpse.name,a_qpse.value);});(document.head||document.documentElement).appendChild(z_y8);})();</script>
+    <!-- End UTMify -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <!-- VTurb (VSL da última tela): marca o início do carregamento para as métricas do player e resolve o DNS cedo.
+         Os preloads pesados (player.js, smartplayer.js, main.m3u8) são feitos pelo script.js duas telas antes
+         da VSL, para não competir com a capa. -->
+    <script>!function(i,n){i._plt=i._plt||(n&&n.timeOrigin?n.timeOrigin+n.now():Date.now())}(window,performance);</script>
+    <link rel="dns-prefetch" href="https://cdn.converteai.net" />
+    <link rel="dns-prefetch" href="https://scripts.converteai.net" />
+    <link rel="dns-prefetch" href="https://images.converteai.net" />
+    <link rel="dns-prefetch" href="https://license.vturb.com" />
+    <meta name="author" content="The Replay Effect" />
+    <meta
+      name="description"
+      content="The Replay Effect quiz: discover how to make your ex miss you and get a personalized protocol to win him back."
+    />
+    <title>The Replay Effect | Make your ex miss you</title>
+    <link rel="preload" as="font" type="font/woff2" href="fonts/figtree-var.woff2" crossorigin />
+    <link rel="stylesheet" href="styles.css?v=28" />
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <meta name="theme-color" content="#fdf5f4" />
+  </head>
+  <body>
+    <!-- Meta Pixel (sem JavaScript): no body, onde <img> é válido. -->
+    <noscript><img height="1" width="1" style="display: none" alt="" src="https://www.facebook.com/tr?id=1648255387023677&ev=PageView&noscript=1" /></noscript>
+    <main class="app-shell">
+      <section class="quiz-frame">
+        <header id="appHeader" class="app-header">
+          <button id="backButton" class="back-button" type="button" aria-label="Back">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7" /></svg>
+          </button>
+          <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+        </header>
+        <div id="app" class="screen">
+          <!-- Capa já no HTML e sem animação de entrada: aparece na hora, antes do script
+               carregar (melhor LCP e connect rate). O script reaproveita este conteúdo. -->
+          <div class="cover">
+            <h1 class="title title--center">Discover how to make your ex miss you in <strong>just 60 seconds</strong></h1>
+            <div class="cover__image"><img src="images/image-whatsapp.webp" srcset="images/image-whatsapp-560.webp 560w, images/image-whatsapp.webp 880w" sizes="(max-width: 440px) calc(100vw - 48px), 392px" alt="Messenger chat: missed voice calls and the message “I'm sorry, I just wanted to tell you that I miss us.”" width="880" height="660" fetchpriority="high" decoding="async" /></div>
+            <p class="subtitle subtitle--center">
+              Use this <strong>psychological message</strong> and he'll start reaching out to you again. It doesn't matter if you cheated on him,
+              if he blocked you, or if he's with someone else now.
+            </p>
+            <ul class="info-checks">
+              <li><span class="info-checks__icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg></span><span>Besides this message, you'll get a <strong>personalized win-back protocol</strong></span></li>
+              <li><span class="info-checks__icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg></span><span>You'll discover the mistake that makes <strong>93% of women</strong> lose their ex forever… and how to avoid it</span></li>
+              <li><span class="info-checks__icon"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"></path></svg></span><span>You'll also learn the “dirty” shortcut to bring him back within the <strong>next 48 hours</strong></span></li>
+            </ul>
+            <p class="cover__call">Take the quiz and unlock the message 👇🏻</p>
+            <div class="cta-bar"><button class="primary" id="coverStart" type="button">I want my ex back</button></div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <script src="progress.js?v=4" defer></script>
+    <script src="script.js?v=35" defer></script>
+  </body>
+</html>

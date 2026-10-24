@@ -1,0 +1,967 @@
+/* Figtree variável (self-hosted, latin): um único arquivo de 20 KB cobre os pesos 400 a 800,
+   no lugar de 5 arquivos estáticos (57 KB e 5 requisições). */
+@font-face {
+  font-family: "Figtree";
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url("fonts/figtree-var.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Paleta Efeito Replay: estrutura do GoodKids (fundo claro, cards brancos, uma cor de ação),
+   com um vinho-carmim no lugar do azul e fundo rosado, mais quente e envolvente para o nicho
+   de relacionamento. Mostarda, sálvia e coral seguem como cores de apoio. As versões "-ink" são
+   as mesmas cores escurecidas, para texto sobre fundo claro. */
+:root {
+  --primary: #b3123f;
+  --primary-dark: #8c0d31;
+  --text: #2a1419;
+  --muted: #7a5c63;
+  --faint: rgb(122 92 99 / 72%);
+  --background: #fdf5f4;
+  --card: #ffffff;
+  --surface: #f8e9e8;
+  --soft: #fbe3e7;
+  --line: #f0dcdc;
+  --sage: #4fae68;
+  --mustard: #f7a51c;
+  --coral: #f4604a;
+  --lavender: #9a78e6;
+  --success: var(--sage);
+  --success-ink: #2d8a47;
+  --danger: var(--coral);
+  --danger-ink: #d0102f;
+  --warning: var(--mustard);
+  --star: var(--mustard);
+  --radius: 16px;
+  --radius-sm: 12px;
+  --shadow: 0 4px 30px rgb(179 18 63 / 9%);
+  --gutter: 24px;
+  --frame: 440px;
+  --ease: cubic-bezier(0.25, 0.8, 0.25, 1);
+  font-family: "Figtree", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* Base */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--background);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.quiz-frame {
+  position: relative;
+  min-height: 100vh;
+  width: min(100%, var(--frame));
+  margin: 0 auto;
+  background: var(--background);
+}
+
+/* Cabeçalho: seta de voltar e barra de progresso. */
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  height: 56px;
+  align-items: center;
+  padding: 0 12px;
+  background: rgb(253 245 244 / 92%);
+  backdrop-filter: blur(10px);
+}
+
+.back-button {
+  display: grid;
+  visibility: hidden;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.back-button.is-visible {
+  visibility: visible;
+}
+
+.back-button:hover {
+  background: var(--surface);
+}
+
+/* Tela */
+
+.screen {
+  /* Espaço embaixo para o botão fixo não cobrir o conteúdo. */
+  padding: 8px var(--gutter) 128px;
+}
+
+/* Entrada em cascata: cada bloco sobe 40px e aparece. */
+.rise {
+  animation: rise 0.4s var(--ease) var(--delay, 0.1s) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    animation: none;
+  }
+}
+
+.title {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+}
+
+.title strong {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.title--center {
+  text-align: center;
+}
+
+/* Headline maior (tela da VSL). */
+.title--big {
+  font-size: 31px;
+  line-height: 1.2;
+}
+
+.subtitle {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+/* Opções em lista. */
+
+.options {
+  display: grid;
+  gap: 10px;
+  margin-top: 24px;
+}
+
+.option {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  border: 2px solid transparent;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.4;
+  text-align: left;
+  cursor: pointer;
+  transition:
+    border-color 0.18s,
+    background 0.18s,
+    transform 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.option:active {
+  transform: scale(0.98);
+}
+
+.option.is-active {
+  border-color: var(--primary);
+  background: rgb(179 18 63 / 5%);
+}
+
+.option__emoji {
+  flex: 0 0 auto;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.option__label {
+  flex: 1;
+}
+
+/* Caixa de seleção das perguntas de múltipla escolha. */
+
+.check {
+  display: grid;
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 2px solid var(--line);
+  border-radius: 7px;
+  color: transparent;
+  transition:
+    background 0.18s,
+    border-color 0.18s;
+}
+
+.option.is-active .check {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #ffffff;
+}
+
+/* Botão principal fixo no rodapé, como na referência. */
+
+.cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 20;
+  width: min(100%, var(--frame));
+  padding: 24px var(--gutter) 32px;
+  background: linear-gradient(180deg, rgb(253 245 244 / 0%), var(--background) 36%);
+  transform: translateX(-50%);
+}
+
+/* O "rise" usa transform: no rodapé fixo ele só aparece, sem subir. */
+.cta-bar.rise {
+  animation-name: fade;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.primary {
+  display: flex;
+  width: 100%;
+  min-height: 56px;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--primary);
+  box-shadow: 0 8px 20px rgb(179 18 63 / 24%);
+  color: #ffffff;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    opacity 0.18s,
+    transform 0.15s;
+}
+
+.primary:active {
+  transform: scale(0.98);
+}
+
+.primary:disabled {
+  box-shadow: none;
+  cursor: not-allowed;
+  filter: grayscale(30%);
+  opacity: 0.4;
+}
+
+/* Lista com checks (capa). */
+
+.info-checks {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.info-checks li {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+  padding: 12px 14px;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+.info-checks__icon {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+}
+
+.subtitle--center {
+  text-align: center;
+}
+
+/* Imagem ainda não criada: caixa com o nome do arquivo esperado. */
+
+.img-placeholder {
+  display: grid;
+  width: 100%;
+  min-height: 160px;
+  place-content: center;
+  justify-items: center;
+  gap: 6px;
+  border: 2px dashed rgb(179 18 63 / 25%);
+  border-radius: var(--radius);
+  background: var(--soft);
+  padding: 12px;
+  color: var(--primary);
+  text-align: center;
+  word-break: break-all;
+}
+
+.img-placeholder small {
+  font-size: 10px;
+  font-weight: 700;
+  opacity: 0.7;
+}
+
+.img-placeholder__emoji {
+  font-size: 44px;
+  line-height: 1;
+}
+
+@media (max-width: 360px) {
+  :root {
+    --gutter: 16px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+
+  .title--big {
+    font-size: 27px;
+  }
+}
+
+/* Barra de progresso do topo, ao lado da seta de voltar. */
+
+.progress {
+  position: relative;
+  flex: 1;
+  height: 8px;
+  margin: 0 40px 0 8px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--soft);
+}
+
+.progress span {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 10%;
+  border-radius: inherit;
+  background: var(--primary);
+  transition: width 0.7s var(--ease);
+}
+
+/* Capa (tela 1): título, print da conversa, promessa, lista com checks e botão fixo no rodapé. */
+
+.cover {
+  display: grid;
+  gap: 16px;
+}
+
+/* Print da conversa: card arredondado com sombra, sem degradê (a última mensagem fica visível). */
+.cover__image {
+  overflow: hidden;
+  border: 1.5px solid var(--primary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.cover__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.cover .subtitle {
+  margin: 0;
+}
+
+.cover .subtitle strong {
+  color: var(--text);
+}
+
+.cover__call {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Destaques coloridos no texto: !!vermelho!! e ++verde++ (ver rich() no script.js). */
+
+.title strong.is-bad,
+.letter__text strong.is-bad {
+  color: var(--danger-ink);
+}
+
+.title strong.is-good {
+  color: var(--success-ink);
+}
+
+/* Carta longa (tela "protocolo"). */
+
+.letter__alert {
+  margin: 0 0 18px;
+  border: 1px solid rgb(247 165 28 / 35%);
+  border-radius: var(--radius-sm);
+  background: rgb(247 165 28 / 12%);
+  padding: 12px 16px;
+  color: #7a4a00;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.letter__text {
+  display: grid;
+  gap: 12px;
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+
+.letter__text p {
+  margin: 0;
+}
+
+.letter__text strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.letter__text--center {
+  text-align: center;
+}
+
+.letter__image {
+  margin-top: 20px;
+  overflow: hidden;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.letter__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Imagem com fundo transparente: sem card, sombra nem cantos. */
+.letter__image--bare {
+  overflow: visible;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.letter__lead {
+  margin: 28px 0 0;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.35;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.letter__lead strong {
+  color: var(--primary);
+  font-weight: 800;
+}
+
+.letter__question {
+  margin: 36px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  text-align: center;
+  text-wrap: balance;
+}
+
+/* Respostas da carta: dois botões empilhados, largura toda. */
+.options--stack {
+  grid-template-columns: 1fr;
+}
+
+/* Os dois botões em destaque: borda vinho; o primeiro cheio e pulsando, como CTA principal. */
+.options--stack .option {
+  justify-content: center;
+  min-height: 64px;
+  border-color: var(--primary);
+  padding: 16px 18px;
+  color: var(--primary);
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.options--stack .option:first-child {
+  background: var(--primary);
+  box-shadow: 0 10px 24px rgb(179 18 63 / 32%);
+  color: #ffffff;
+  animation: pulse 1.8s ease-in-out 1s infinite;
+}
+
+.options--stack .option.is-active {
+  background: var(--primary-dark);
+  color: #ffffff;
+  animation: none;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .options--stack .option:first-child {
+    animation: none;
+  }
+}
+
+.letter__note {
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.letter__note strong {
+  color: var(--text);
+}
+
+/* Upsell (up1/): aviso, título, VSL e botões de aceitar/recusar. */
+
+.upsell {
+  padding-top: 24px;
+  padding-bottom: 48px;
+}
+
+.upsell .title {
+  margin-bottom: 20px;
+}
+
+.upsell-offer {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.upsell-offer[hidden] {
+  display: none;
+}
+
+a.primary {
+  padding: 14px 18px;
+  font-weight: 800;
+  text-align: center;
+  text-decoration: none;
+}
+
+.upsell-offer__decline {
+  color: var(--muted);
+  font-size: 14px;
+  text-align: center;
+  text-underline-offset: 3px;
+}
+
+/* VSL dentro do quiz (player VTurb): cantos arredondados e sombra, como os cards. */
+/* Player da VSL: só o vídeo, sem fundo nem moldura em volta (nada de bloco preto sobrando). */
+.vsl-player {
+  max-width: 400px;
+  margin: 20px auto 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+
+/* Botão da oferta abaixo da VSL (#oferta-vsl): verde, revelado pelo VTurb no pitch.
+   Texto numa linha só, mesmo nos celulares estreitos. */
+.vsl-offer__cta {
+  max-width: 400px;
+  min-height: 60px;
+  margin: 18px auto 0;
+  padding: 14px 12px;
+  font-size: clamp(14px, 4.2vw, 17px);
+  background: #16a34a;
+  box-shadow: 0 10px 24px rgb(22 163 74 / 32%);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+  animation: fade 0.4s var(--ease) both, pulse 1.8s ease-in-out 1s infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vsl-offer__cta {
+    animation: none;
+  }
+}
+
+/* TSL: só o que a página de obrigado (obrigado/) ainda usa. O resto da TSL longa antiga
+   (Acelerador 10X) foi para docs/tsl-longa.css, junto da página arquivada em docs/. */
+
+.tsl {
+  padding-bottom: 64px;
+}
+
+.tsl-cta {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+/* Página de obrigado (obrigado/): selo, passos numerados e dica. */
+.thanks {
+  text-align: center;
+}
+
+.thanks__badge {
+  display: grid;
+  width: 72px;
+  height: 72px;
+  margin: 8px auto 20px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--success-ink);
+  box-shadow: 0 10px 24px rgb(45 138 71 / 30%);
+  color: #ffffff;
+}
+
+.thanks__steps {
+  display: grid;
+  gap: 12px;
+  margin: 28px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: step;
+  text-align: left;
+}
+
+.thanks__steps li {
+  position: relative;
+  display: grid;
+  gap: 4px;
+  border-radius: var(--radius);
+  background: var(--card);
+  padding: 16px 16px 16px 60px;
+  box-shadow: var(--shadow);
+  counter-increment: step;
+}
+
+.thanks__steps li::before {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--primary);
+  color: #ffffff;
+  content: counter(step);
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.thanks__steps strong {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.thanks__steps span {
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.thanks__tip {
+  margin-top: 20px;
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+  padding: 14px 16px;
+  font-size: 15px;
+  line-height: 1.5;
+  text-align: left;
+}
+
+.thanks__tip p {
+  margin: 0;
+}
+
+.thanks__support {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 14px;
+}
+
+/* TSL curta dos upsells (up1/ Conselheiro, up2/ Círculo): aviso no topo e um card com a oferta
+   (estrutura do upsell da CalmKids). */
+
+.up1 {
+  padding-bottom: 40px;
+}
+
+.up1-alert {
+  margin: 0 0 18px;
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+  padding: 12px 16px;
+  color: var(--primary-dark);
+  font-size: 15px;
+  font-weight: 800;
+  line-height: 1.4;
+  text-align: center;
+}
+
+/* Variante verde: confirmação de compra (up2/). */
+.up1-alert--ok {
+  background: rgb(79 174 104 / 14%);
+  color: var(--success-ink);
+}
+
+.up1-card {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+
+.up1-card__head {
+  background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+  padding: 20px 22px 24px;
+  color: #ffffff;
+  text-align: center;
+}
+
+.up1-pill {
+  display: inline-block;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 18%);
+  padding: 5px 12px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.up1-card__head h1 {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  line-height: 1.3;
+  text-wrap: balance;
+}
+
+.up1-card__head strong {
+  font-weight: 800;
+}
+
+.up1-card__body {
+  padding: 22px 20px 24px;
+}
+
+.up1-copy {
+  margin: 0 0 14px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.up1-copy strong,
+.up1-imagine strong {
+  color: var(--text);
+}
+
+.up1-quote {
+  margin: 0 0 14px;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--surface);
+  padding: 12px 14px;
+  color: var(--text);
+  font-size: 15.5px;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* Situações de dor (up2/): uma por linha, numa caixa com borda vinho. */
+.up1-pains {
+  display: grid;
+  gap: 10px;
+  margin: 0 0 16px;
+  border-left: 3px solid var(--primary);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--surface);
+  padding: 14px;
+  color: var(--text);
+  font-size: 15.5px;
+  line-height: 1.45;
+  list-style: none;
+}
+
+.up1-offer-title {
+  margin: 22px 0 10px;
+  color: var(--primary);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+}
+
+.up1-checklist {
+  display: grid;
+  gap: 12px;
+  margin: 6px 0 20px;
+  border-radius: var(--radius-sm);
+  background: var(--soft);
+  padding: 16px;
+  list-style: none;
+}
+
+.up1-checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.up1-checklist span {
+  display: grid;
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--success-ink);
+  color: #ffffff;
+  font-size: 11px;
+}
+
+.up1-imagine {
+  margin: 0 0 10px;
+  font-size: 17px;
+  line-height: 1.45;
+  text-align: center;
+}
+
+.up1-price {
+  margin: 20px 0 16px;
+  border: 1.5px dashed var(--primary);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+
+.up1-price small {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.up1-price strong {
+  color: var(--primary);
+  font-size: 34px;
+  font-weight: 800;
+}
+
+/* Botão de compra verde, como o da VSL principal. */
+.up1-cta {
+  min-height: 60px;
+  background: #16a34a;
+  box-shadow: 0 10px 24px rgb(22 163 74 / 32%);
+  font-size: 16px;
+  text-transform: uppercase;
+  animation: pulse 1.8s ease-in-out 1s infinite;
+}
+
+.up1-decline {
+  display: block;
+  margin-top: 16px;
+}
+
+.up1-fineprint {
+  margin: 18px 8px 0;
+  color: var(--faint);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .up1-cta {
+    animation: none;
+  }
+}
