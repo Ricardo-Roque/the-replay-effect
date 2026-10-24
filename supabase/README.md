@@ -9,7 +9,7 @@ Funil The Replay Effect (em inglês, checkout VendePay). Uma linha por visita em
 - Tabela com RLS ligado e sem policies. Só a Edge Function (service role) escreve.
 
 ## Status
-Ainda não publicado. O `TRACK_URL` do `progress.js` já aponta para `https://bionetfauvpcwlhqvvum.supabase.co/functions/v1/track-replay-en`; até o deploy, os envios voltam 404 e são descartados (o quiz não é afetado).
+Publicado em 2026-10-24: migration aplicada no projeto **Grupo RME** (`bionetfauvpcwlhqvvum`) e função `track-replay-en` no ar. `REPLAY_EN_ALLOWED_ORIGINS` ainda vazio (aceita qualquer origem). Há uma linha de teste com id `00000000-0000-4000-8000-000000000001` (utm_source `teste`) para ignorar ou apagar.
 
 ## Publicar
 1. Aplicar só `migrations/20261024000000_replay_en_sessions.sql` no projeto **Grupo RME** (`bionetfauvpcwlhqvvum`), pelo SQL Editor. Não usar `supabase db push`: o projeto remoto tem migrations de outros funis que não estão nesta pasta.
