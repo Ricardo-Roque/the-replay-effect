@@ -21,9 +21,9 @@ const expert = {
 // Casos da carta da tela "protocolo" (nome, cidade e prints). Exemplos adaptados da referência:
 // substituir por casos reais de clientes, com autorização, antes de anunciar.
 const cases = [
-  { name: "Jessica", city: "from Dallas, Texas", image: "images/image-depoimento-01.webp", size: [880, 663] },
-  { name: "Sophia", city: "from Denver, Colorado", image: "images/image-depoimento-02.webp", size: [880, 852] },
-  { name: "Ashley", city: "from Atlanta, Georgia", image: "images/image-depoimento-03.webp", size: [880, 804] },
+  { name: "Jessica", city: "from Dallas, Texas", image: "images/image-depoimento-01.webp", size: [880, 660] },
+  { name: "Sophia", city: "from Denver, Colorado", image: "images/image-depoimento-02.webp", size: [880, 880] },
+  { name: "Ashley", city: "from Atlanta, Georgia", image: "images/image-depoimento-03.webp", size: [880, 880] },
 ];
 
 // VSL (última tela do quiz).
@@ -142,8 +142,7 @@ const steps = [
       {
         text: [`And they're just **3 of the ${expert.helped}** I've helped **get their ex back in only 7 days**. Look ⬇️`],
       },
-      // Fundo transparente: aparece solta, sem o card.
-      { image: "images/image-depoimento-04.webp", size: [880, 964], emoji: "💬", bare: true },
+      { image: "images/image-depoimento-04.webp", size: [880, 880], emoji: "💬" },
       {
         lead: "If these women, who were in a **worse situation than yours**, got back with their ex in less than 7 days, **you can too. Here's how 👇**",
       },
