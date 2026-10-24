@@ -22,6 +22,7 @@
     <!-- End UTMify -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="dns-prefetch" href="https://www.facebook.com" />
+    <link rel="preconnect" href="https://widget.vendepay.com" />
     <meta name="robots" content="noindex" />
     <title>Win-Back Coach</title>
     <link rel="preload" as="font" type="font/woff2" href="../fonts/figtree-var.woff2" crossorigin />
@@ -68,9 +69,8 @@
                 <strong>$27.00 USD</strong>
               </div>
 
-              <!-- Compra em 1 clique da VendePay: trocar este botão pelo botão/snippet de one-click da oferta
-                   (e o script da VendePay no fim da página, se ela pedir). -->
-              <a class="primary up1-cta" href="#" data-upsell-buy>I want one-on-one support</a>
+              <!-- Compra em 1 clique da VendePay: o widget (script no fim da página) mostra a oferta neste container. -->
+              <div id="vendepay-upsell-container"></div>
               <a class="upsell-offer__decline up1-decline" href="#" data-decline>I'd rather continue with just The Win-Back Code.</a>
             </div>
           </section>
@@ -80,6 +80,10 @@
       </section>
     </main>
     <script src="upsell.js?v=7" defer></script>
-    <!-- Script da VendePay (compra em 1 clique): colar aqui, uma vez só, antes do </body>. -->
+    <!-- Script do widget VendePay Upsell (upsellId 83f15379-63f0-4985-aa0e-6fe1d8756a4e): uma vez só, antes do </body>. -->
+    <script
+      src="https://widget.vendepay.com/upsell-widget/v1/vendepay-upsell-widget-1.0.16.js?upsellId=83f15379-63f0-4985-aa0e-6fe1d8756a4e"
+      onload="window.VendepayUpsellWidget && window.VendepayUpsellWidget.showIframe('vendepay-upsell-container')"
+    ></script>
   </body>
 </html>

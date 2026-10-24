@@ -40,8 +40,8 @@ const vslConfig = {
   // Botão de compra abaixo do player (#oferta-vsl). Começa oculto e quem revela é o VTurb, no segundo
   // do pitch configurado no painel (seletor #oferta-vsl). O link leva as UTMs junto (ver [data-checkout]).
   offer: {
-    // Link do checkout VendePay do produto principal. Vazio = o botão aparece, mas não sai da página.
-    checkoutUrl: "",
+    // Checkout VendePay do produto principal. Vazio = o botão aparece, mas não sai da página.
+    checkoutUrl: "https://checkout.vendepay.com/8df2c586-23ae-4214-9bb7-ab0968852401",
     cta: "I WANT MY EX BACK",
   },
 };
